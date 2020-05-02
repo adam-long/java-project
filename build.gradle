@@ -1,0 +1,51 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+
+description = 'Basic Java Project'
+group = 'net.codaverde'
+
+mainClassName = 'net.codaverde.java.project.Main'
+
+repositories {
+    jcenter()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.apache.logging.log4j:log4j-bom:2.13.2'
+    }
+}
+
+dependencies {
+    implementation 'org.apache.logging.log4j:log4j-api'
+    implementation 'org.apache.logging.log4j:log4j-core'
+    implementation 'info.picocli:picocli:4.2.0'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
+    testImplementation     'junit:junit:4.13'
+}
+
+distributions {
+    main {
+        contents {
+            from('src/main/conf'){
+                into 'conf'
+            }
+        }
+    }
+}
+applicationDefaultJvmArgs = ['-Dlog4j.configurationFile=MY_APP_HOME/conf/log4j2.yml']
+
+startScripts {
+    doLast {
+        unixScript.text = unixScript.text.replace('MY_APP_HOME', '\$APP_HOME')
+        windowsScript.text = windowsScript.text.replace('MY_APP_HOME', '%APP_HOME%')
+    }
+}
