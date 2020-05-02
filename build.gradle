@@ -67,7 +67,7 @@ distributions {
     }
 }
 
-applicationDefaultJvmArgs = ['-Dlog4j.configurationFile=MY_APP_HOME/conf/log4j2.yml', '-D' + mainClassName + '.config=MY_APP_HOME/conf/' + rootProject.name + '.yml']
+applicationDefaultJvmArgs = ['-Dlog4j.configurationFile=MY_APP_HOME/conf/log4j2.yml', '-D' + mainClassName + '.config=MY_APP_HOME/conf/' + rootProject.name + '.yml', '-Dlog.dir=MY_APP_HOME/log/', '-Dapp.name=' + rootProject.name]
 
 startScripts {
     doLast {
