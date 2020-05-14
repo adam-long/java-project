@@ -83,10 +83,10 @@ startScripts {
           'APP_LIB_DIR=${APP_HOME}/lib\n'
         )
         windowsScript.text = windowsScript.text.replace('set APP_HOME=%DIRNAME%..','set APP_HOME=%DIRNAME%.."\r\n' +
-          'set APP_BIN_DIR=%APP_HOME%\\bin\n' +
-          'set APP_LOG_DIR=%APP_HOME%\\log\n' +
-          'set APP_CONF_DIR=%APP_HOME%\\conf\n' +
-          'set APP_LIB_DIR=%APP_HOME%\\lib\n'
+          'set APP_BIN_DIR=%APP_HOME%\\bin\r\n' +
+          'set APP_LOG_DIR=%APP_HOME%\\log\r\n' +
+          'set APP_CONF_DIR=%APP_HOME%\\conf\r\n' +
+          'set APP_LIB_DIR=%APP_HOME%\\lib\r\n'
         )
         // Update the JVM Args
         windowsScript.text = windowsScript.text.replace('${APP_NAME}', '%APP_NAME%')
