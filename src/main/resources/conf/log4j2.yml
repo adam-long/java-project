@@ -15,7 +15,7 @@ Configuration:
 
     RollingFile:
       - name: LogToRollingFile
-        fileName: ${sys:log.dir}/${sys:app.name}.log
+        fileName: ${sys:app.log.dir}/${sys:app.name}.log
         filePattern: "${sys:app.name}.log.%i.gz"
         PatternLayout:
           pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"

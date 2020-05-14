@@ -26,7 +26,7 @@ dependencyManagement {
 dependencies {
     // Requirements
     implementation 'org.apache.logging.log4j:log4j-api'
-    implementation 'org.apache.logging.log4j:log4j-core'
+    annotationProcessor 'org.apache.logging.log4j:log4j-core'
     implementation 'info.picocli:picocli:latest.integration'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:latest.integration'
     implementation 'com.fasterxml.jackson.core:jackson-databind:latest.integration'
@@ -67,11 +67,32 @@ distributions {
     }
 }
 
-applicationDefaultJvmArgs = ['-Dlog4j.configurationFile=MY_APP_HOME/conf/log4j2.yml', '-D' + mainClassName + '.config=MY_APP_HOME/conf/' + rootProject.name + '.yml', '-Dlog.dir=MY_APP_HOME/log/', '-Dapp.name=' + rootProject.name]
+applicationDefaultJvmArgs = ['-Dlog4j.configurationFile=${APP_CONF_DIR}/log4j2.yml',
+                             '-Dapp.name=${APP_NAME}',
+                             '-Dapp.bin.dir=${APP_BIN_DIR}',
+                             '-Dapp.log.dir=${APP_LOG_DIR}',
+                             '-Dapp.conf.dir=${APP_CONF_DIR}',
+                             '-Dapp.lib.dir=${APP_LIB_DIR}']
 
 startScripts {
     doLast {
-        unixScript.text = unixScript.text.replace('MY_APP_HOME', '\$APP_HOME')
-        windowsScript.text = windowsScript.text.replace('MY_APP_HOME', '%APP_HOME%')
+        unixScript.text = unixScript.text.replace('APP_HOME="`pwd -P`"','APP_HOME="`pwd -P`"\n' +
+          'APP_BIN_DIR=${APP_HOME}/bin\n' +
+          'APP_LOG_DIR=${APP_HOME}/log\n' +
+          'APP_CONF_DIR=${APP_HOME}/conf\n' +
+          'APP_LIB_DIR=${APP_HOME}/lib\n'
+        )
+        windowsScript.text = windowsScript.text.replace('set APP_HOME=%DIRNAME%..','set APP_HOME=%DIRNAME%.."\r\n' +
+          'set APP_BIN_DIR=%APP_HOME%\\bin\n' +
+          'set APP_LOG_DIR=%APP_HOME%\\log\n' +
+          'set APP_CONF_DIR=%APP_HOME%\\conf\n' +
+          'set APP_LIB_DIR=%APP_HOME%\\lib\n'
+        )
+        // Update the JVM Args
+        windowsScript.text = windowsScript.text.replace('${APP_NAME}', '%APP_NAME%')
+        windowsScript.text = windowsScript.text.replace('${APP_BIN_DIR}', '%APP_BIN_DIR%')
+        windowsScript.text = windowsScript.text.replace('${APP_LOG_DIR}', '%APP_LOG_DIR%')
+        windowsScript.text = windowsScript.text.replace('${APP_CONF_DIR}', '%APP_CONF_DIR%')
+        windowsScript.text = windowsScript.text.replace('${APP_LIB_DIR}', '%APP_LIB_DIR%')
     }
 }

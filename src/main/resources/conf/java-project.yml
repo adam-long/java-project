@@ -1,2 +1,5 @@
-## YAML Template.
----
+app.name: ${sys:app.name}
+app.bin.dir: ${sys:app.bin.dir}
+app.log.dir: ${sys:app.log.dir}
+app.conf.dir: ${sys:app.conf.dir}
+app.lib.dir: ${sys:app.lib.dir}
