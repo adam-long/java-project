@@ -1,5 +1,6 @@
-app.name: ${sys:app.name}
-app.bin.dir: ${sys:app.bin.dir}
-app.log.dir: ${sys:app.log.dir}
-app.conf.dir: ${sys:app.conf.dir}
-app.lib.dir: ${sys:app.lib.dir}
+app:
+  name: ${sys:app.name}
+  binDir: ${sys:app.bin.dir}
+  logDir: ${sys:app.log.dir}
+  confDir: ${sys:app.conf.dir}
+  libDir: ${sys:app.lib.dir}
