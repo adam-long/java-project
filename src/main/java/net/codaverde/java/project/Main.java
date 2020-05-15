@@ -25,7 +25,7 @@ public class Main implements Callable<Integer> {
     private static final Logger LOG = LogManager.getLogger(Main.class.getName());
 
     public static void main(final String[] args) {
-        configFile = new File(System.getProperty("app.config.dir") + "/" + System.getProperty("app.name") + ".config");
+        configFile = new File(System.getProperty("app.conf.dir") + "/" + System.getProperty("app.name") + ".config");
         int exitCode = new CommandLine(new Main()).execute(args);
         System.exit(exitCode);
     }
