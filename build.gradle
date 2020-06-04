@@ -74,6 +74,15 @@ applicationDefaultJvmArgs = ['-Dlog4j.configurationFile=MY_APP_CONF_DIR/log4j2.y
                              '-Dapp.conf.dir=MY_APP_CONF_DIR',
                              '-Dapp.lib.dir=MY_APP_LIB_DIR']
 
+run{
+    jvmArgs = ['-Dlog4j.configurationFile=src/main/resources/conf/log4j2.yml',
+                '-Dapp.name=' + rootProject.name,
+                '-Dapp.bin.dir=MY_APP_BIN_DIR',
+                '-Dapp.log.dir=build/logs',
+                '-Dapp.conf.dir=src/main/resources/conf',
+                '-Dapp.lib.dir=MY_APP_LIB_DIR']
+}
+
 startScripts {
     doLast {
         unixScript.text = unixScript.text.replace('APP_HOME="`pwd -P`"','APP_HOME="`pwd -P`"\n' +
