@@ -31,7 +31,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:latest.integration'
     implementation 'com.fasterxml.jackson.core:jackson-databind:latest.integration'
     implementation 'org.apache.commons:commons-configuration2:latest.integration'
-    implementation 'commons-beanutils:commons-beanutils:latest.integration'
+    implementation 'commons-beanutils:commons-beanutils:1.9.4'
     // Convenience
     implementation 'com.google.guava:guava:latest.integration'
     implementation 'com.google.guava:guava:latest.integration'
@@ -48,6 +48,10 @@ dependencies {
 }
 
 jar {
+    // Have to include libraries here, else the CLASSPATH command-line argument is too long for Windows
+    manifest {
+        attributes "Class-Path": configurations.compileClasspath.files*.name.join(" ")
+    }
     sourceSets{
         main{
             resources {
@@ -84,6 +88,8 @@ run{
 }
 
 startScripts {
+    // Have to include libraries here, else the CLASSPATH command-line argument is too long for Windows
+    classpath = classpath = jar.outputs.files
     doLast {
         unixScript.text = unixScript.text.replace('APP_HOME="`pwd -P`"','APP_HOME="`pwd -P`"\n' +
           'APP_BIN_DIR=MY_APP_HOME/bin\n' +
